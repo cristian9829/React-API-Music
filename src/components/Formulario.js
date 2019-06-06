@@ -1,28 +1,35 @@
 import React, {useState} from 'react';
 
-function Formulario (){
+function Formulario ({consultarApiLetra}){
    
-   const [busqueda, agregarBusqueda] = useState({
-     artista: '',
-     cancion: ''
-   })
+    const [busqueda, agregarBusqueda] = useState({
+      artista: '',
+      cancion: ''
+    })
 
-   //Funcion para actualizar el state de los inputs
-   const actualizarState = e =>{
-     agregarBusqueda({
-       ...busqueda,
-       [e.target.name] : e.target.value
-     })
-
-     console.log(busqueda)
+    //Funcion para actualizar el state de los inputs
+    const actualizarState = e =>{
+      agregarBusqueda({
+        ...busqueda,
+        [e.target.name] : e.target.value
+      })
    }
+
+    //Cuando hacemos submit al form 
+    const enviarInformacion = e =>{
+      e.preventDefault();
+
+      consultarApiLetra(busqueda);
+    }
 
   return(
     <div className="bg-info">
       <div className="container">
         <div className="row">
           <form 
-            className="col card text-white bg-transparent  mb-5 pt-5 pb-2">
+            className="col card text-white bg-transparent  mb-5 pt-5 pb-2"
+            onSubmit={enviarInformacion}
+            >
             <fieldset>
               <legend className="text-center">Buscador Letras Canciones</legend>
               <div className="row">
